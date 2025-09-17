@@ -213,11 +213,17 @@ export const useTextSelection = () => {
   const [selectedText, setSelectedText] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [selectionPosition, setSelectionPosition] = useState({ x: 0, y: 0 });
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   useEffect(() => {
     const handleSelection = () => {
       const selection = window.getSelection();
       const text = selection?.toString().trim();
+      
+      // Clear any existing timeout
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
       
       if (text && text.length > 3) {
         // Get selection position for modal positioning reference
@@ -232,8 +238,11 @@ export const useTextSelection = () => {
         }
         
         setSelectedText(text);
-        // Show modal immediately on selection
-        setShowModal(true);
+        
+        // Wait 400ms before showing modal to let user finish selecting
+        timeoutRef.current = setTimeout(() => {
+          setShowModal(true);
+        }, 400);
       } else {
         setShowModal(false);
         setSelectedText('');
@@ -245,6 +254,9 @@ export const useTextSelection = () => {
     
     return () => {
       document.removeEventListener('selectionchange', handleSelection);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
     };
   }, []);
   
