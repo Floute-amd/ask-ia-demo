@@ -4,22 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, BookOpen, Clock, Users, CheckCircle, Play, FileText } from 'lucide-react';
 import { ContextMenu, AIModal, useTextSelection } from '@/components/AIHelper';
-
-// Safe Link wrapper that checks for router context
-const SafeLink: React.FC<{ to: string; className?: string; children: React.ReactNode }> = ({ 
-  to, 
-  className, 
-  children 
-}) => {
-  try {
-    // This will throw if router context is not available
-    useLocation();
-    return <Link to={to} className={className}>{children}</Link>;
-  } catch {
-    // Fallback to regular anchor if router context is not available
-    return <a href={to} className={className}>{children}</a>;
-  }
-};
+import { SafeLink } from './HomePage';
 
 const courseData = {
   'cs101': {
@@ -258,12 +243,9 @@ const CoursePage: React.FC = () => {
   
   const {
     selectedText,
-    showContextMenu,
     showModal,
-    contextMenuPosition,
-    handleAskAI,
-    handleCloseModal,
-    setShowContextMenu
+    selectionPosition,
+    handleCloseModal
   } = useTextSelection();
 
   if (!course) {
@@ -404,19 +386,11 @@ const CoursePage: React.FC = () => {
         </div>
       </div>
 
-      {/* AI Helper Components */}
-      {showContextMenu && (
-        <ContextMenu
-          position={contextMenuPosition}
-          onAskAI={handleAskAI}
-          onClose={() => setShowContextMenu(false)}
-        />
-      )}
-
+      {/* AI Helper Modal - No context menu needed */}
       {showModal && (
         <AIModal
           selectedText={selectedText}
-          position={contextMenuPosition}
+          position={selectionPosition}
           onClose={handleCloseModal}
         />
       )}

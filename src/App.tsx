@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Suspense } from "react";
 import HomePage from "./pages/HomePage";
 import CoursePage from "./pages/CoursePage";
+import BrowseCoursesPageWithAI from "./pages/BrowseCoursesPageWithAI";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/courses" element={<BrowseCoursesPageWithAI />} />
             <Route path="/course/:courseId" element={<CoursePage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

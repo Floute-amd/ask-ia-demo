@@ -208,56 +208,57 @@ export const AIModal: React.FC<AIHelperProps> = ({ selectedText, onClose }) => {
   );
 };
 
-// Custom hook for text selection and context menu
+// Custom hook for text selection and AI helper (no right-click needed)
 export const useTextSelection = () => {
   const [selectedText, setSelectedText] = useState('');
-  const [showContextMenu, setShowContextMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
+  const [selectionPosition, setSelectionPosition] = useState({ x: 0, y: 0 });
   
   useEffect(() => {
-    const handleContextMenu = (event: MouseEvent) => {
+    const handleSelection = () => {
       const selection = window.getSelection();
       const text = selection?.toString().trim();
       
       if (text && text.length > 3) {
-        event.preventDefault();
+        // Get selection position for modal positioning reference
+        const range = selection?.getRangeAt(0);
+        const rect = range?.getBoundingClientRect();
+        
+        if (rect) {
+          setSelectionPosition({ 
+            x: rect.left + rect.width / 2, 
+            y: rect.top 
+          });
+        }
+        
         setSelectedText(text);
-        setContextMenuPosition({ x: event.pageX, y: event.pageY });
-        setShowContextMenu(true);
+        // Show modal immediately on selection
+        setShowModal(true);
+      } else {
+        setShowModal(false);
+        setSelectedText('');
       }
     };
     
-    const handleClick = () => {
-      setShowContextMenu(false);
-    };
-    
-    document.addEventListener('contextmenu', handleContextMenu);
-    document.addEventListener('click', handleClick);
+    // Listen for selection changes
+    document.addEventListener('selectionchange', handleSelection);
     
     return () => {
-      document.removeEventListener('contextmenu', handleContextMenu);
-      document.removeEventListener('click', handleClick);
+      document.removeEventListener('selectionchange', handleSelection);
     };
   }, []);
-  
-  const handleAskAI = () => {
-    setShowContextMenu(false);
-    setShowModal(true);
-  };
   
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedText('');
+    // Clear selection when closing modal
+    window.getSelection()?.removeAllRanges();
   };
   
   return {
     selectedText,
-    showContextMenu,
     showModal,
-    contextMenuPosition,
-    handleAskAI,
-    handleCloseModal,
-    setShowContextMenu: (show: boolean) => setShowContextMenu(show)
+    selectionPosition,
+    handleCloseModal
   };
 };

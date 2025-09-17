@@ -6,7 +6,7 @@ import { BookOpen, Users, Clock, Award, ArrowRight, GraduationCap } from 'lucide
 import heroImage from '@/assets/hero-learning.jpg';
 
 // Safe Link wrapper that checks for router context
-const SafeLink: React.FC<{ to: string; className?: string; children: React.ReactNode }> = ({ 
+export const SafeLink: React.FC<{ to: string; className?: string; children: React.ReactNode }> = ({ 
   to, 
   className, 
   children 
@@ -96,11 +96,13 @@ const HomePage: React.FC = () => {
                 by selecting any text and asking our AI assistant.
               </p>
               <div className="flex items-center justify-center gap-4">
-                <Button size="lg" className="btn-hero bg-white/20 text-white border-white/30 hover:bg-white hover:text-primary">
-                  <BookOpen className="w-5 h-5 mr-2" />
-                  Browse Courses
-                </Button>
-                <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white hover:text-primary">
+                <SafeLink to="/courses">
+                  <Button size="lg" className="btn-hero bg-white/20 text-white border-white/30 hover:bg-white hover:text-primary">
+                    <BookOpen className="w-5 h-5 mr-2" />
+                    Browse Courses
+                  </Button>
+                </SafeLink>
+                <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white hover:text-primary backdrop-blur-sm">
                   Watch Demo
                 </Button>
               </div>
