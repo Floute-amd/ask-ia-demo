@@ -1,9 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { BookOpen, Users, Clock, Award, ArrowRight, GraduationCap } from 'lucide-react';
 import heroImage from '@/assets/hero-learning.jpg';
+
+// Safe Link wrapper that checks for router context
+const SafeLink: React.FC<{ to: string; className?: string; children: React.ReactNode }> = ({ 
+  to, 
+  className, 
+  children 
+}) => {
+  try {
+    // This will throw if router context is not available
+    useLocation();
+    return <Link to={to} className={className}>{children}</Link>;
+  } catch {
+    // Fallback to regular anchor if router context is not available
+    return <a href={to} className={className}>{children}</a>;
+  }
+};
 
 const courses = [
   {
@@ -197,12 +213,12 @@ const HomePage: React.FC = () => {
                     </div>
                   </div>
                   
-                  <Link to={`/course/${course.id}`} className="block mt-4">
+                  <SafeLink to={`/course/${course.id}`} className="block mt-4">
                     <Button className="w-full btn-hero">
                       Start Learning
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
-                  </Link>
+                  </SafeLink>
                 </CardContent>
               </Card>
             ))}

@@ -1,9 +1,25 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, BookOpen, Clock, Users, CheckCircle, Play, FileText } from 'lucide-react';
 import { ContextMenu, AIModal, useTextSelection } from '@/components/AIHelper';
+
+// Safe Link wrapper that checks for router context
+const SafeLink: React.FC<{ to: string; className?: string; children: React.ReactNode }> = ({ 
+  to, 
+  className, 
+  children 
+}) => {
+  try {
+    // This will throw if router context is not available
+    useLocation();
+    return <Link to={to} className={className}>{children}</Link>;
+  } catch {
+    // Fallback to regular anchor if router context is not available
+    return <a href={to} className={className}>{children}</a>;
+  }
+};
 
 const courseData = {
   'cs101': {
@@ -255,9 +271,9 @@ const CoursePage: React.FC = () => {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">Course Not Found</h1>
-          <Link to="/">
+          <SafeLink to="/">
             <Button>Return Home</Button>
-          </Link>
+          </SafeLink>
         </div>
       </div>
     );
@@ -268,10 +284,10 @@ const CoursePage: React.FC = () => {
       <div className="container mx-auto px-6 py-8">
         {/* Header */}
         <div className="mb-8">
-          <Link to="/" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-4">
+          <SafeLink to="/" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-4">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Courses
-          </Link>
+          </SafeLink>
           
           <div className="animate-fade-in">
             <h1 className="text-4xl font-bold text-foreground mb-4">{course.title}</h1>
