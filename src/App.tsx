@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import HomePage from "./pages/HomePage";
 import CoursePage from "./pages/CoursePage";
 import BrowseCoursesPageWithAI from "./pages/BrowseCoursesPageWithAI";
+import DemoPage from "./pages/DemoPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/courses" element={<BrowseCoursesPageWithAI />} />
+            <Route path="/demo" element={<DemoPage />} />
             <Route path="/course/:courseId" element={<CoursePage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

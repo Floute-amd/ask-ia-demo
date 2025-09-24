@@ -102,9 +102,11 @@ const HomePage: React.FC = () => {
                     Browse Courses
                   </Button>
                 </SafeLink>
-                <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white hover:text-primary backdrop-blur-sm">
-                  Watch Demo
-                </Button>
+                <SafeLink to="/demo">
+                  <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white hover:text-primary backdrop-blur-sm">
+                    Watch Demo
+                  </Button>
+                </SafeLink>
               </div>
             </div>
           </div>
