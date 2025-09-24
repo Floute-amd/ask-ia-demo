@@ -19,7 +19,7 @@ const allCourses = [
     category: 'Computer Science',
     color: 'bg-primary',
     lessons: 24,
-    price: '200$'
+    price: '$180'
   },
   {
     id: 'cs102',
@@ -33,7 +33,7 @@ const allCourses = [
     category: 'Computer Science',
     color: 'bg-accent',
     lessons: 20,
-    price: '250$'
+    price: '$240'
   },
   {
     id: 'math101',
@@ -47,7 +47,7 @@ const allCourses = [
     category: 'Mathematics',
     color: 'bg-success',
     lessons: 32,
-    price: '200$'
+    price: '$220'
   },
   {
     id: 'econ101',
@@ -61,7 +61,7 @@ const allCourses = [
     category: 'Economics',
     color: 'bg-warning',
     lessons: 28,
-    price: '200$'
+    price: '$200'
   },
   {
     id: 'cs201',
@@ -75,7 +75,7 @@ const allCourses = [
     category: 'Computer Science',
     color: 'bg-primary',
     lessons: 30,
-    price: '300$'
+    price: '$350'
   },
   {
     id: 'math201',
@@ -89,7 +89,7 @@ const allCourses = [
     category: 'Mathematics',
     color: 'bg-success',
     lessons: 24,
-    price: '250$'
+    price: '$260'
   },
   {
     id: 'phys101',
@@ -103,7 +103,7 @@ const allCourses = [
     category: 'Physics',
     color: 'bg-destructive',
     lessons: 28,
-    price: '220$'
+    price: '$200'
   },
   {
     id: 'chem101',
@@ -117,7 +117,7 @@ const allCourses = [
     category: 'Chemistry',
     color: 'bg-secondary',
     lessons: 32,
-    price: '230$'
+    price: '$230'
   },
   {
     id: 'bio101',
@@ -131,7 +131,7 @@ const allCourses = [
     category: 'Biology',
     color: 'bg-success',
     lessons: 24,
-    price: '210$'
+    price: '$180'
   },
   {
     id: 'hist101',
@@ -145,7 +145,7 @@ const allCourses = [
     category: 'History',
     color: 'bg-warning',
     lessons: 30,
-    price: '190$'
+    price: '$210'
   },
   {
     id: 'psyc101',
@@ -159,7 +159,7 @@ const allCourses = [
     category: 'Psychology',
     color: 'bg-accent',
     lessons: 26,
-    price: '200$'
+    price: '$195'
   },
   {
     id: 'bus101',
@@ -173,7 +173,7 @@ const allCourses = [
     category: 'Business',
     color: 'bg-primary',
     lessons: 20,
-    price: '180$'
+    price: '$160'
   },
   {
     id: 'art101',
@@ -187,7 +187,7 @@ const allCourses = [
     category: 'Arts',
     color: 'bg-destructive',
     lessons: 22,
-    price: '170$'
+    price: '$170'
   },
   {
     id: 'cs301',
@@ -201,7 +201,7 @@ const allCourses = [
     category: 'Computer Science',
     color: 'bg-primary',
     lessons: 32,
-    price: '350$'
+    price: '$380'
   },
   {
     id: 'eng101',
@@ -215,7 +215,7 @@ const allCourses = [
     category: 'English',
     color: 'bg-secondary',
     lessons: 24,
-    price: '160$'
+    price: '$175'
   },
   {
     id: 'phys201',
@@ -229,7 +229,7 @@ const allCourses = [
     category: 'Physics',
     color: 'bg-destructive',
     lessons: 28,
-    price: '320$'
+    price: '$330'
   },
   {
     id: 'mus101',
@@ -243,7 +243,7 @@ const allCourses = [
     category: 'Music',
     color: 'bg-accent',
     lessons: 20,
-    price: '150$'
+    price: '$150'
   },
   {
     id: 'phil101',
@@ -257,7 +257,7 @@ const allCourses = [
     category: 'Philosophy',
     color: 'bg-warning',
     lessons: 26,
-    price: '180$'
+    price: '$190'
   },
   {
     id: 'stat101',
@@ -271,7 +271,7 @@ const allCourses = [
     category: 'Mathematics',
     color: 'bg-success',
     lessons: 24,
-    price: '240$'
+    price: '$250'
   },
   {
     id: 'env101',
@@ -285,7 +285,7 @@ const allCourses = [
     category: 'Environmental Science',
     color: 'bg-success',
     lessons: 28,
-    price: '200$'
+    price: '$200'
   }
 ];
 

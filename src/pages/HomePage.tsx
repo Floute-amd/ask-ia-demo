@@ -240,9 +240,11 @@ const HomePage: React.FC = () => {
             Join thousands of students who are already using AI-powered learning 
             to master complex subjects faster than ever before.
           </p>
-          <Button size="lg" className="bg-white/20 text-white border-white/30 hover:bg-white hover:text-primary">
-            Get Started Today
-          </Button>
+          <SafeLink to="/courses">
+            <Button size="lg" className="bg-white/20 text-white border-white/30 hover:bg-white hover:text-primary">
+              Get Started Today
+            </Button>
+          </SafeLink>
         </div>
       </section>
     </div>
