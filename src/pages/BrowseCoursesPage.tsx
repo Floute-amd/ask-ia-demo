@@ -19,7 +19,7 @@ const allCourses = [
     category: 'Computer Science',
     color: 'bg-primary',
     lessons: 24,
-    price: 'Free'
+    price: '200$'
   },
   {
     id: 'cs102',
@@ -33,7 +33,7 @@ const allCourses = [
     category: 'Computer Science',
     color: 'bg-accent',
     lessons: 20,
-    price: 'Free'
+    price: '250$'
   },
   {
     id: 'math101',
@@ -47,7 +47,7 @@ const allCourses = [
     category: 'Mathematics',
     color: 'bg-success',
     lessons: 32,
-    price: 'Free'
+    price: '200$'
   },
   {
     id: 'econ101',
@@ -61,7 +61,7 @@ const allCourses = [
     category: 'Economics',
     color: 'bg-warning',
     lessons: 28,
-    price: 'Free'
+    price: '200$'
   },
   {
     id: 'cs201',
@@ -75,7 +75,7 @@ const allCourses = [
     category: 'Computer Science',
     color: 'bg-primary',
     lessons: 30,
-    price: 'Free'
+    price: '300$'
   },
   {
     id: 'math201',
@@ -89,7 +89,7 @@ const allCourses = [
     category: 'Mathematics',
     color: 'bg-success',
     lessons: 24,
-    price: 'Free'
+    price: '250$'
   }
 ];
 
