@@ -4,7 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, BookOpen, Users, Clock, Search, Filter, Star, GraduationCap } from 'lucide-react';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { ArrowLeft, BookOpen, Users, Clock, Search, Filter, Star, GraduationCap, MessageCircle, UserCheck } from 'lucide-react';
 
 const allCourses = [
   {
@@ -19,7 +20,9 @@ const allCourses = [
     category: 'Computer Science',
     color: 'bg-primary',
     lessons: 24,
-    price: '$180'
+    price: '$180',
+    selfPacedPrice: '$120',
+    hasTeacher: true
   },
   {
     id: 'cs102',
@@ -33,7 +36,9 @@ const allCourses = [
     category: 'Computer Science',
     color: 'bg-accent',
     lessons: 20,
-    price: '$240'
+    price: '$240',
+    selfPacedPrice: '$160',
+    hasTeacher: true
   },
   {
     id: 'math101',
@@ -47,7 +52,9 @@ const allCourses = [
     category: 'Mathematics',
     color: 'bg-success',
     lessons: 32,
-    price: '$220'
+    price: '$220',
+    selfPacedPrice: '$150',
+    hasTeacher: true
   },
   {
     id: 'econ101',
@@ -61,7 +68,9 @@ const allCourses = [
     category: 'Economics',
     color: 'bg-warning',
     lessons: 28,
-    price: '$200'
+    price: '$200',
+    selfPacedPrice: '$140',
+    hasTeacher: true
   },
   {
     id: 'cs201',
@@ -75,7 +84,9 @@ const allCourses = [
     category: 'Computer Science',
     color: 'bg-primary',
     lessons: 30,
-    price: '$350'
+    price: '$350',
+    selfPacedPrice: '$230',
+    hasTeacher: true
   },
   {
     id: 'math201',
@@ -89,7 +100,9 @@ const allCourses = [
     category: 'Mathematics',
     color: 'bg-success',
     lessons: 24,
-    price: '$260'
+    price: '$260',
+    selfPacedPrice: '$180',
+    hasTeacher: true
   },
   {
     id: 'phys101',
@@ -201,7 +214,9 @@ const allCourses = [
     category: 'Computer Science',
     color: 'bg-primary',
     lessons: 32,
-    price: '$380'
+    price: '$380',
+    selfPacedPrice: '$250',
+    hasTeacher: true
   },
   {
     id: 'eng101',
@@ -292,10 +307,52 @@ const allCourses = [
 const categories = ['All', 'Computer Science', 'Mathematics', 'Economics'];
 const levels = ['All', 'Beginner', 'Intermediate', 'Advanced'];
 
+const ContactTeacherModal = ({ course }: { course: any }) => (
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button variant="outline" size="sm" className="w-full">
+        <MessageCircle className="w-4 h-4 mr-2" />
+        Contact Teacher
+      </Button>
+    </DialogTrigger>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Contact {course.instructor}</DialogTitle>
+        <DialogDescription>
+          Get personalized help for {course.title}
+        </DialogDescription>
+      </DialogHeader>
+      <div className="space-y-4">
+        <div className="flex items-center gap-3 p-4 bg-muted rounded-lg">
+          <UserCheck className="w-5 h-5 text-primary" />
+          <div>
+            <p className="font-medium">{course.instructor}</p>
+            <p className="text-sm text-muted-foreground">Available for 1-on-1 sessions</p>
+          </div>
+        </div>
+        <div className="space-y-2">
+          <p className="text-sm text-muted-foreground">Available contact methods:</p>
+          <div className="space-y-2">
+            <Button variant="outline" className="w-full justify-start">
+              <MessageCircle className="w-4 h-4 mr-2" />
+              Schedule Office Hours ($25/hour)
+            </Button>
+            <Button variant="outline" className="w-full justify-start">
+              <MessageCircle className="w-4 h-4 mr-2" />
+              Send Message (Free)
+            </Button>
+          </div>
+        </div>
+      </div>
+    </DialogContent>
+  </Dialog>
+);
+
 const BrowseCoursesPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedLevel, setSelectedLevel] = useState('All');
+  const [courseMode, setCourseMode] = useState<{[key: string]: 'teacher' | 'self-paced'}>({});
 
   const filteredCourses = allCourses.filter(course => {
     const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -443,16 +500,56 @@ const BrowseCoursesPage: React.FC = () => {
                   </div>
                   <div className="text-right">
                     <p className="text-xs text-muted-foreground">Price</p>
-                    <p className="text-sm font-bold text-success">{course.price}</p>
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <p className="text-xs font-bold text-success">{course.price}</p>
+                        <Badge variant="secondary" className="text-xs">With Teacher</Badge>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <p className="text-xs font-bold text-muted-foreground">{course.selfPacedPrice}</p>
+                        <Badge variant="outline" className="text-xs">Self-Paced</Badge>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                
-                <SafeLink to={`/course/${course.id}`}>
-                  <Button className="w-full btn-hero">
-                    Start Learning
-                    <BookOpen className="w-4 h-4 ml-2" />
-                  </Button>
-                </SafeLink>
+
+                {/* Course Mode Toggle */}
+                <div className="mb-4 p-3 bg-muted/50 rounded-lg">
+                  <p className="text-xs text-muted-foreground mb-2">Choose your learning style:</p>
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      variant={(courseMode[course.id] || 'teacher') === 'teacher' ? 'default' : 'outline'}
+                      onClick={() => setCourseMode(prev => ({ ...prev, [course.id]: 'teacher' }))}
+                      className="flex-1"
+                    >
+                      <UserCheck className="w-3 h-3 mr-1" />
+                      With Teacher
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant={(courseMode[course.id] || 'teacher') === 'self-paced' ? 'default' : 'outline'}
+                      onClick={() => setCourseMode(prev => ({ ...prev, [course.id]: 'self-paced' }))}
+                      className="flex-1"
+                    >
+                      Self-Paced
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="space-y-2">
+                  <SafeLink to={`/course/${course.id}`}>
+                    <Button className="w-full btn-hero">
+                      Start Learning - {(courseMode[course.id] || 'teacher') === 'teacher' ? course.price : course.selfPacedPrice}
+                      <BookOpen className="w-4 h-4 ml-2" />
+                    </Button>
+                  </SafeLink>
+                  
+                  {(courseMode[course.id] || 'teacher') === 'teacher' && (
+                    <ContactTeacherModal course={course} />
+                  )}
+                </div>
               </CardContent>
             </Card>
           ))}
