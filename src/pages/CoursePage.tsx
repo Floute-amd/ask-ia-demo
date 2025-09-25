@@ -365,6 +365,17 @@ const CoursePage: React.FC = () => {
               ))}
             </div>
 
+            {/* Continue to Page 2 */}
+            <div className="mt-8 flex justify-center">
+              <Button 
+                size="lg" 
+                className="bg-primary hover:bg-primary/90"
+                onClick={() => alert('Page 2 coming soon! This course has additional advanced content.')}
+              >
+                Continue to Page 2 →
+              </Button>
+            </div>
+
             {/* AI Demo Notice */}
             <Card className="mt-8 border-primary/20 bg-primary/5">
               <CardContent className="pt-6">
