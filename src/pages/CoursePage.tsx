@@ -2,9 +2,10 @@ import React from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, BookOpen, Clock, Users, CheckCircle, Play, FileText } from 'lucide-react';
+import { ArrowLeft, BookOpen, Clock, Users, CheckCircle, Play, FileText, MessageCircle, Calendar, Mail } from 'lucide-react';
 import { ContextMenu, AIModal, useTextSelection } from '@/components/AIHelper';
 import { SafeLink } from './HomePage';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 const courseData = {
   'cs101': {
@@ -293,6 +294,39 @@ const CoursePage: React.FC = () => {
             <p className="text-foreground font-medium mt-4">
               Instructor: {course.instructor}
             </p>
+            
+            {/* Contact Teacher Button */}
+            <div className="mt-4">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline" size="sm" className="gap-2">
+                    <MessageCircle className="w-4 h-4" />
+                    Contact Teacher
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Contact {course.instructor}</DialogTitle>
+                    <DialogDescription>
+                      Get in touch with your instructor for questions, feedback, or office hours.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4 pt-4">
+                    <Button className="w-full gap-2" onClick={() => alert('Opening scheduling system...')}>
+                      <Calendar className="w-4 h-4" />
+                      Schedule Office Hours
+                    </Button>
+                    <Button variant="outline" className="w-full gap-2" onClick={() => alert('Opening message composer...')}>
+                      <Mail className="w-4 h-4" />
+                      Send Message
+                    </Button>
+                    <div className="text-sm text-muted-foreground text-center">
+                      Response time: Usually within 24 hours
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
           </div>
         </div>
 
@@ -321,6 +355,39 @@ const CoursePage: React.FC = () => {
                       <CheckCircle className="w-4 h-4 text-success" />
                     </div>
                   ))}
+                </div>
+                
+                {/* Contact Teacher in Sidebar */}
+                <div className="mt-4 pt-4 border-t">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" size="sm" className="w-full gap-2">
+                        <MessageCircle className="w-4 h-4" />
+                        Need Help? Contact Teacher
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md">
+                      <DialogHeader>
+                        <DialogTitle>Contact {course.instructor}</DialogTitle>
+                        <DialogDescription>
+                          Get in touch with your instructor for questions, feedback, or office hours.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-4 pt-4">
+                        <Button className="w-full gap-2" onClick={() => alert('Opening scheduling system...')}>
+                          <Calendar className="w-4 h-4" />
+                          Schedule Office Hours
+                        </Button>
+                        <Button variant="outline" className="w-full gap-2" onClick={() => alert('Opening message composer...')}>
+                          <Mail className="w-4 h-4" />
+                          Send Message
+                        </Button>
+                        <div className="text-sm text-muted-foreground text-center">
+                          Response time: Usually within 24 hours
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </div>
               </CardContent>
             </Card>
