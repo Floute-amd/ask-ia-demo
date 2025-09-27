@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { BookOpen, Users, Clock, Award, ArrowRight, GraduationCap } from 'lucide-react';
 import heroImage from '@/assets/hero-learning.jpg';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 // Safe Link wrapper that checks for router context
 export const SafeLink: React.FC<{ to: string; className?: string; children: React.ReactNode }> = ({ 
@@ -71,6 +72,11 @@ const courses = [
 const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
+      {/* Theme Toggle */}
+      <div className="fixed top-4 right-4 z-50">
+        <ThemeToggle />
+      </div>
+      
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
